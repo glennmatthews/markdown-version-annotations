@@ -1,4 +1,0 @@
----
-skips: []
-exclude_dirs:
-  - "./.venv/"

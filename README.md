@@ -150,3 +150,21 @@ If using [`mkdocs-material`](https://squidfunk.github.io/mkdocs-material/), you 
     mask-image: var(--md-admonition-icon--version-removed);
 }
 ```
+
+## Development
+
+The development environment for this plugin is based on [`invoke`](http://www.pyinvoke.org/) and [`Poetry`](https://python-poetry.org/). After installing Poetry itself, you can run `poetry shell` followed by `poetry install` to set up a Python virtual environment populated with this plugin's development tool dependencies. You can then use the installed `invoke` command to execute various development tasks:
+
+```
+$ invoke --list
+Available tasks:
+
+  bandit       Run bandit to validate basic static code security analysis.
+  black        Run black to check that Python files are consistently formatted.
+  flake8       Run flake8 code analysis.
+  pydocstyle   Run pydocstyle to validate docstring formatting adheres to standards.
+  pylint       Run pylint code static analysis.
+  tests        Run all linters and tests for this repository.
+```
+
+After making any code change, it is recommended to run `invoke tests` before committing your code.
