@@ -1,12 +1,12 @@
 # MkDocs Version Annotations
 
-This is a simple [MkDocs](https://www.mkdocs.org/) plugin that adds a few simple macros to make it quicker and more self-consistent when adding annotations in your documentation about differences between project versions.
+This is a simple [MkDocs](https://www.mkdocs.org/) plugin that adds a few simple macros to make it quicker and easier to add self-consistent annotations to your documentation about differences between project versions.
 
 This plugin was originally developed for use with the [Nautobot](https://docs.nautobot.com/) project's documentation but should be reusable.
 
 ## Usage
 
-Install this plugin with `pip install mkdocs_version_annotations` and enable it as a plugin in your `mkdocs.yml`. You also should enable the `admonition` Markdown extension:
+Install this plugin with `pip install mkdocs_version_annotations` and enable it as a plugin in your `mkdocs.yml`. You also should enable the [`admonition`](https://python-markdown.github.io/extensions/admonition/) Markdown extension:
 
 ```yaml
 markdown_extensions:
@@ -23,7 +23,7 @@ In your documentation, you can then use any of the following macros at the start
 - `+/- 1.0.0` as a annotation that something was changed in version 1.0.0 of your project
 - `--- 1.0.0` as a annotation that something was removed in version 1.0.0 of your project
 
-Because these macros will be transformed into Markdown "admonitions", you can also add details of the change as text on the following line(s) with a four-space indent, such as:
+Because these macros will be transformed into Markdown ["admonitions"](https://python-markdown.github.io/extensions/admonition/), you can optionally include details of the change as text on the following line(s) with a four-space indent, such as:
 
 ```markdown
 +++ 1.0.0
@@ -34,9 +34,19 @@ Because these macros will be transformed into Markdown "admonitions", you can al
     - "flavor"
 ```
 
+which would render in the MkDocs-generated HTML as:
+
+```html
+<div class="admonition version-added">
+<p class="admonition-title">Added in version 1.0.0</p>
+<p>Added the following parameters:</p>
+<ul>...</ul>
+</div>
+```
+
 ## Plugin Configuration
 
-By default, these macros will render as the following admonitions, which are suitable for use with `mkdocs-material` or similar themes that allow for [custom admonitions](https://squidfunk.github.io/mkdocs-material/reference/admonitions/#custom-admonitions):
+By default, these macros will render as the following admonitions, which are suitable for use with [`mkdocs-material`](https://squidfunk.github.io/mkdocs-material/) or similar themes that allow for [custom admonition styling](https://squidfunk.github.io/mkdocs-material/reference/admonitions/#custom-admonitions):
 
 ```markdown
 !!! version-added "Added in version <version>"
@@ -61,7 +71,7 @@ This can be fully customized via configuration, if desired! The following config
 | `version_removed_admonition` | `"version-removed"`        |
 | `version_removed_title`      | `"Removed in version \\1"` |
 
-In the `_title` configs, the `\1` (backslash-escaped as `"\\1"`) corresponds to the version number specified in any given usage of the macro.
+In the `_title` configs, the `\1` (backslash-escaped in YAML as `"\\1"`) corresponds to the version number specified in any given usage of the macro.
 
 So for example, you could configure:
 
@@ -72,14 +82,15 @@ plugins:
       version_added_title: "New in version \\1"
 ```
 
-and now your `+++ 1.2.3` macro would instead be rendered as:
+in which case a `+++ 1.2.3` macro would now be rendered as:
 
 ```markdown
 !!! info "New in version 1.2.3"
 ```
+
 ## Styling with `mkdocs-material`
 
-If using [`mkdocs-material`](https://squidfunk.github.io/mkdocs-material/), you might want to add the following to the `extra.css` for your project documentation in order to have custom styling for each of these three admonition types. (If you don't add this, or use a different theme, they should still render nonetheless, most likely using the same styling as generic "info" admonitions.)
+If using [`mkdocs-material`](https://squidfunk.github.io/mkdocs-material/), you might want to add something like the following to the `extra.css` for your project documentation in order to have custom styling for each of these three custom admonition types. (If you don't add this, or use a different theme, they should still render nonetheless, most likely using the same styling as generic "info" admonitions.)
 
 ```css
 :root {     
@@ -139,4 +150,3 @@ If using [`mkdocs-material`](https://squidfunk.github.io/mkdocs-material/), you 
     mask-image: var(--md-admonition-icon--version-removed);
 }
 ```
-
