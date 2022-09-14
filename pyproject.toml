@@ -2,7 +2,27 @@
 name = "mkdocs-version-annotations"
 version = "1.0.0"
 description = "MkDocs plugin to add custom admonitions for documenting version differences"
-authors = ["Network to Code, LLC <info@networktocode.com>"]
+authors = ["Glenn Matthews <glenn@e-dad.net>"]
+license = "MIT"
+repository = "https://github.com/glennmatthews/mkdocs-version-annotations"
+readme = "README.md"
+keywords = ["mkdocs"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+packages = [
+    {include = "mkdocs_version_annotations"}
+]
+include = [
+    "CHANGELOG.md",
+    "LICENSE.txt",
+]
 
 [tool.poetry.plugins."mkdocs.plugins"]
 mkdocs-version-annotations = 'mkdocs_version_annotations:MkDocsVersionAnnotationsPlugin'
