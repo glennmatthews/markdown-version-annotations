@@ -1,12 +1,12 @@
 ---
 name: 🐛 Bug Report
-about: Report a reproducible bug in the current release of mkdocs-version-annotations
+about: Report a reproducible bug in the current release of markdown-version-annotations
 ---
 
 ### Environment
 * Python version:  <!-- Example: 3.7.7 -->
-* mkdocs version:
-* mkdocs-version-annotations version:  <!-- Example: 1.0.0 -->
+* Markdown version:
+* markdown-version-annotations version:  <!-- Example: 1.0.0 -->
 
 <!-- What did you expect to happen? -->
 ### Expected Behavior
