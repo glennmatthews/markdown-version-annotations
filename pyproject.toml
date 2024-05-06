@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "markdown-version-annotations"
-version = "1.0.0"
+version = "1.0.1"
 description = "Markdown plugin to add custom admonitions for documenting version differences"
 authors = ["Glenn Matthews <glenn@e-dad.net>"]
 license = "MIT"
