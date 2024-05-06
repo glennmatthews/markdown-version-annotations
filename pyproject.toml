@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "mkdocs-version-annotations"
+name = "markdown-version-annotations"
 version = "1.0.0"
-description = "MkDocs plugin to add custom admonitions for documenting version differences"
+description = "Markdown plugin to add custom admonitions for documenting version differences"
 authors = ["Glenn Matthews <glenn@e-dad.net>"]
 license = "MIT"
-repository = "https://github.com/glennmatthews/mkdocs-version-annotations"
+repository = "https://github.com/glennmatthews/markdown-version-annotations"
 readme = "README.md"
-keywords = ["mkdocs"]
+keywords = ["markdown"]
 classifiers = [
     "Intended Audience :: Developers",
     "Development Status :: 5 - Production/Stable",
@@ -17,18 +17,12 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
 ]
 packages = [
-    {include = "mkdocs_version_annotations"}
+    {include = "markdown_version_annotations"}
 ]
-include = [
-    "CHANGELOG.md",
-    "LICENSE.txt",
-]
-
-[tool.poetry.plugins."mkdocs.plugins"]
-mkdocs-version-annotations = 'mkdocs_version_annotations:MkDocsVersionAnnotationsPlugin'
 
 [tool.poetry.dependencies]
 python = "^3.7"
+markdown = "^3.3.7"
 
 [tool.poetry.group.dev.dependencies]
 bandit = "^1.7.0"
@@ -77,7 +71,8 @@ no-docstring-rgx="^(_|test_|Meta$)"
 # Line length is enforced by Black, so pylint doesn't need to check it.
 # Pylint and Black disagree about how to format multi-line arrays; Black wins.
 disable = """,
-    line-too-long
+    line-too-long,
+    too-few-public-methods,
     """
 
 [tool.pylint.miscellaneous]

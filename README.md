@@ -1,32 +1,29 @@
-# MkDocs Version Annotations
+# Markdown Version Annotations
 
-This is a simple [MkDocs](https://www.mkdocs.org/) plugin that adds a few simple macros to make it quicker and easier to add self-consistent annotations to your documentation about differences between project versions.
+This is a simple [Markdown](https://python-markdown.github.io/) plugin that adds a few simple macros to make it quicker and easier to add self-consistent annotations to your documentation about differences between project versions.
 
 This plugin was originally developed for use with the [Nautobot](https://docs.nautobot.com/) project's documentation but should be reusable.
 
 ## Usage
 
-Install this plugin with `pip install mkdocs_version_annotations` and enable it as a plugin in your `mkdocs.yml`. You also should enable the [`admonition`](https://python-markdown.github.io/extensions/admonition/) Markdown extension:
+Install this plugin with `pip install markdown_version_annotations` and enable it as a plugin in your `mkdocs.yml`. You also should enable the [`admonition`](https://python-markdown.github.io/extensions/admonition/) Markdown extension *after* this plugin:
 
 ```yaml
 markdown_extensions:
+  - "markdown_version_annotations"
   - "admonition"
-
-plugins:
-  - "search"
-  - "mkdocs-version-annotations"
 ```
 
-In your documentation, you can then use any of the following macros at the start of any line:
+In your documentation, you can then use any of the following macros at the start of any line (or with leading whitespace as appropriate, e.g for indentation or nesting of admonitions within one another):
 
 - `+++ 1.0.0` as an annotation that something was added in version 1.0.0 of your project
 - `+/- 1.0.0` as a annotation that something was changed in version 1.0.0 of your project
 - `--- 1.0.0` as a annotation that something was removed in version 1.0.0 of your project
 
-Because these macros will be transformed into Markdown ["admonitions"](https://python-markdown.github.io/extensions/admonition/), you can optionally include details of the change as text on the following line(s) with a four-space indent, such as:
+Because these macros will be transformed into Markdown ["admonitions"](https://python-markdown.github.io/extensions/admonition/), you can optionally include a summary in quotes at the end of this line, and further details of the change as text on the following line(s) with a four-space indent, such as:
 
 ```markdown
-+++ 1.0.0
++++ 1.0.0 "Added more parameters"
     Added the following parameters:
 
     - "mass"
@@ -34,11 +31,11 @@ Because these macros will be transformed into Markdown ["admonitions"](https://p
     - "flavor"
 ```
 
-which would render in the MkDocs-generated HTML as:
+which would render in the Markdown-generated HTML as:
 
 ```html
 <div class="admonition version-added">
-<p class="admonition-title">Added in version 1.0.0</p>
+<p class="admonition-title">Added in version 1.0.0 — Added more parameters</p>
 <p>Added the following parameters:</p>
 <ul>...</ul>
 </div>
@@ -49,21 +46,22 @@ which would render in the MkDocs-generated HTML as:
 By default, these macros will render as the following admonitions, which are suitable for use with [`mkdocs-material`](https://squidfunk.github.io/mkdocs-material/) or similar themes that allow for [custom admonition styling](https://squidfunk.github.io/mkdocs-material/reference/admonitions/#custom-admonitions):
 
 ```markdown
-!!! version-added "Added in version <version>"
+!!! version-added "Added in version <version> — <summary>"
 ```
 
 ```markdown
-!!! version-changed "Changed in version <version>"
+!!! version-changed "Changed in version <version> — <summary>"
 ```
 
 ```markdown
-!!! version-removed "Removed in version <version>"
+!!! version-removed "Removed in version <version> — <summary>"
 ```
 
-This can be fully customized via configuration, if desired! The following configuration keys can be specified in `mkdocs.yaml` under the `mkdocs-version-annotations` entry:
+This can be fully customized via configuration, if desired! The following configuration keys can be specified in `mkdocs.yml` under the `markdown_version_annotations` entry:
 
 | Configuration                | Default Value              |
 | ---------------------------- | -------------------------- |
+| `admonition_tag`             | `"!!!"`                    |
 | `version_added_admonition`   | `"version-added"`          |
 | `version_added_title`        | `"Added in version \\1"`   |
 | `version_changed_admonition` | `"version-changed"`        |
@@ -76,16 +74,17 @@ In the `_title` configs, the `\1` (backslash-escaped in YAML as `"\\1"`) corresp
 So for example, you could configure:
 
 ```yaml
-plugins:
-  - mkdocs-version-annotations:
+markdown_extensions:
+  - markdown_version_annotations:
+      admonition_tag: "???"
       version_added_admonition: "info"
       version_added_title: "New in version \\1"
 ```
 
-in which case a `+++ 1.2.3` macro would now be rendered as:
+in which case a `+++ 1.2.3` macro would now be rendered as a default-collapsed "info" admonition:
 
 ```markdown
-!!! info "New in version 1.2.3"
+??? info "New in version 1.2.3"
 ```
 
 ## Styling with `mkdocs-material`
